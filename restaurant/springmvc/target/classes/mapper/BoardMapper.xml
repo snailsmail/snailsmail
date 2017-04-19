@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.BoardDAO">
+
+    <insert id="insertBoard" parameterType="Board">
+        insert into board(boardno,bname,state) values(#{boardno},#{bname},#{state})
+    </insert>
+
+    <delete id="deleteBoard" parameterType="String">
+        delete from board where boardno = #{boardno}
+    </delete>
+
+    <update id="updateBoard" parameterType="Board">
+        update board set bname = #{bname},state = #{state} where boardno = #{boardno}
+    </update>
+
+    <select id="getBoard" parameterType="String" resultType="Board">
+        select * from board where boardno=#{boardno}
+    </select>
+
+    <select id="getAllBoard" resultType="Board">
+            select * from board
+    </select>
+
+</mapper>

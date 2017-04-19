@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.OrderDAO">
+
+    <insert id="insertOrder" parameterType="Order">
+        insert into orders(
+        orderno,
+        billno,
+        boardno,
+        orderdate,
+        price,
+        isOutside,
+        isCheck,
+        remark
+        )
+        values
+        (
+        #{orderno},
+        #{billno},
+        #{boardno},
+        #{orderdate},
+        #{price},
+        #{isOutside},
+        #{isCheck},
+        #{remark}
+        )
+    </insert>
+
+    <delete id="deleteOrderByOrderno" parameterType="String">
+        delete from orders where orderno = #{orderno}
+    </delete>
+
+
+    <update id="updateOrderByOrderno" parameterType="Order">
+        update orders set
+                    billno = #{billno},
+                    boardno = #{boardno},
+                    orderdate = #{orderdate},
+                    price = #{price},
+                    isOutside = #{isOutside},
+                    isCheck = #{isCheck},
+                    remark = #{remark}
+         where orderno = #{orderno}
+    </update>
+
+
+    <select id="getOrderByOrderno" parameterType="String" resultType="Order">
+        select * from orders where orderno=#{orderno}
+    </select>
+
+
+    <select id="getAllOrder" resultType="Order">
+            select * from orders
+    </select>
+
+</mapper>

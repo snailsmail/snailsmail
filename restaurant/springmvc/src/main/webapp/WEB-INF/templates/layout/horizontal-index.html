@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    lang="zh"
+    xmlns="http://www.w3.org/1999/xhtml"
+    layout:decorator="templates/layout/default">
+
+<body layout:fragment="content">
+
+<!-- 左右结构的index页面,左边是查询栏,右边是iframe用来显示查询结果或操作区域 -->
+<div class="container-fluid">
+
+  <div class="base-index index">
+    <div class="left-search search-form">
+      <!--<div class="icon-groups">-->
+        <!--<a class="icon-group search-from-toggle"><i class="fa fa-minus"></i></a>-->
+        <!--<a class="icon-group search-from-horizontal"><i class="fa fa-square-o"></i></a>-->
+        <!--<th:block layout:fragment="search-form-icons"></th:block>-->
+      <!--</div>-->
+
+      <!--<form id='search-form' layout:fragment="search-form" method="get" target="search-result-frame">-->
+        <!--&lt;!&ndash; 查询条件及按钮写在这里 &ndash;&gt;-->
+
+      <!--</form>-->
+
+    </div>
+
+    <div class="embed-responsive list-content">
+      <iframe class="embed-responsive-item" frameborder="0" name="search-result-frame"></iframe>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  $(function () {
+
+    var $index_toggle = $('.search-from-toggle');
+    $index_toggle.click(function () {
+
+      $('.base-index').toggleClass('search-form-collapse');
+
+    });
+
+    $(".search-from-horizontal").click(function() {
+      var $index = $('.base-index');
+      if ($index.hasClass('search-form-collapse')) {
+        $index.removeClass('search-form-collapse');
+      }
+      $index.toggleClass('index').toggleClass('index-horizontal');
+      var $form = $index.find('form:first');
+      $form.parent().toggleClass('left-search');
+      $form.parent().next().toggleClass('list-content');
+
+      var $search_button = $form.find('.form-group:last');
+      if ($('.base-index').hasClass('index')) {
+        $form.find('.form-group').removeClass('col-sm-2');
+        $search_button.removeClass('col-sm-12').removeClass('text-center');
+        $search_button.unwrap();
+      } else {
+        $form.find('.form-group').addClass('col-sm-2');
+        $search_button.removeClass('col-sm-2').addClass('col-sm-12').addClass('text-center');
+        $search_button.wrap('<div class="row search-condition"></div>');
+      }
+    });
+
+    $('#search-form').submit();
+  });
+</script>
+
+<script layout:fragment="extra-script">
+  // extra scripts goes here
+</script>
+
+</body>
+</html>
+

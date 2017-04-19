@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/public/static/eams-ui/css/eams-ui.min.css}" rel="stylesheet" />
+    <link th:href="@{/public/static/eams-ui/css/eams-ui-plugin.min.css}" rel="stylesheet" />
+    <link th:href="@{/public/static/helper/css/info-page.css}" rel="stylesheet" />
+
+    <style>
+        a:link{text-decoration-line: none;}
+        </style>
+</head>
+
+<body layout:fragment="content">
+
+<div class="container-fluid">
+
+    <div style="width: 20%;text-align: center;margin-top: 30px;float: left;">
+
+        <div class="form-group">
+            <label class="error-page h2" name="empmanager" id="empmanager"><a th:href="@{/empGene.do}" target="search-result-frame">员工管理</a></label>
+        </div>
+
+        <div class="form-group">
+            <label class="error-page h2" name="usermanager" id="usermanager"><a th:href="@{/userGene.do}" target="search-result-frame">客户管理</a></label>
+        </div>
+
+        <div class="form-group">
+            <label class="error-page h2" name="cuisinemanager" id="cuisinemanager"><a th:href="@{/cuisine.do}" target="search-result-frame">菜谱管理</a></label>
+        </div>
+
+        <div class="form-group">
+            <label class="error-page h2" name="boardmanager" id="boardmanager"><a th:href="@{/board.do}" target="search-result-frame">餐桌管理</a></label>
+        </div>
+
+        <div class="form-group">
+            <label class="error-page h2" name="dishesmanager" id="dishesmanager"><a th:href="@{/order.do}" target="search-result-frame">订单管理</a></label>
+        </div>
+
+        <div class="form-group">
+            <label class="error-page h2" name="kitchenmanager" id="kitchenmanager"><a th:href="@{/kitchen.do}" target="search-result-frame">上菜管理</a></label>
+        </div>
+
+    </div>
+
+    <div class="embed-responsive list-content" style="width: 80%;text-align: center;margin-top: 20px;float: left;">
+        <iframe class="embed-responsive-item" frameborder="0" name="search-result-frame"></iframe>
+    </div>
+</div>
+</body>
+</html>

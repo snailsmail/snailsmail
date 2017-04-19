@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title th:text="客户信息修改">客户信息修改</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+    <form id="save-form" th:action="@{/updateUser.do}" class="form-horizontal" method="get">
+
+        <div class="form-group">
+            <h2 th:text="客户信息修改"></h2>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="userno" th:text="客户编号">客户编号</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" name="userno" id="userno" th:value="${user.userno}" disabled="disabled"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="uname" th:text="客户姓名">客户姓名</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="uname" id="uname"
+                       th:value="${user.uname}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" th:text="性别">性别</label>
+
+            <div class="col-sm-10">
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="1" name="sex"
+                               th:checked="${user.sex=='男'}"/>
+                        <span>男</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="0" name="sex"
+                               th:checked="${user.sex=='女'}"/>
+                        <span>女</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="tel" th:text="电话号码">电话号码</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="tel" id="tel" th:value="${user.tel}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="balance" th:text="余额">余额</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="balance" id="balance" th:value="${user.balance}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="address" th:text="地址">地址</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" id="address" th:value="${user.address}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" th:text="是否是Vip">是否是Vip</label>
+
+            <div class="col-sm-10">
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="1" name="isvip"
+                               th:checked="${user.isVip()}"/>
+                        <span>是</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="0" name="isvip"
+                               th:checked="${!user.isVip()}"/>
+                        <span>否</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" type="submit" th:text="保存">保存</button>
+                <input type="button" class="btn btn-default" id="page-back" th:value="取消"/>
+                <!--<input type="hidden" name="REDIRECT_URL" th:value="${REDIRECT_URL}"/>-->
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    /*]]>*/
+</script>
+</body>
+</html>

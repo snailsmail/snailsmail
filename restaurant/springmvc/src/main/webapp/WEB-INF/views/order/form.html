@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+  <title>添加菜单</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+
+  <form id="save-form" th:action="@{/saveOrder.do}" class="form-horizontal" method="post">
+
+    <div class="form-group">
+      <h2>添加菜单</h2>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="orderno">菜单编号</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="orderno" id="orderno" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="cuisine">菜系</label>
+
+      <div class="col-sm-10">
+        <select class="form-control selectpicker" name="cuisine" id="cuisine">
+          <option value="">...</option>
+          <option th:each="cuisine : ${ cuisines }"
+                  th:value="${cuisine.cuisineno}"
+                  th:text="${cuisine.cname}">
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="dishes">菜品</label>
+
+      <div class="col-sm-10">
+        <select class="form-control selectpicker" name="dishes" id="dishes">
+          <option value="">...</option>
+          <option th:each="dish : ${ dishes }"
+                  th:value="${dish.dishesno}"
+                  th:text="${dish.dname}">
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="bill">菜单</label>
+
+      <div class="col-sm-10">
+        <textarea cols="80" rows="5" name="bill" id="bill" th:text="${bill.descriptions}"></textarea>
+        <input type="button" class="btn btn-default" value="确认添加"  />
+        <input type="button" class="btn btn-default" value="修改"  />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="price">价格</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="price" id="price" maxlength="100" value="0"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="board">选用餐桌</label>
+
+      <div class="col-sm-10">
+        <select class="form-control selectpicker" name="board" id="board">
+          <option value="">...</option>
+          <span th:each="board : ${ boards }">
+          <option th:if="${!board.state}"
+                  th:value="${board.boardno}"
+                  th:text="${board.bname}">
+          </option>
+            </span>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" type="submit">保存</button>
+        <input type="button" class="btn btn-default" id="page-back" th:value="取消"/>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script type="text/javascript">
+  $("#cuisine").blur(function () {
+    FormUtil.get({
+      form: $("<form></form>"),
+      url: /*[[@{/blurCuisine.do}]]*/ '/blurCuisine.do',
+      params: {
+        cuisine : $("cuisine").val()
+      }
+    });
+  });
+  $('#cuisine').selectize({
+    valueField: 'id',
+    searchField: ['code','nameZh'],
+    create: false,
+    render: {
+      item: function(item, escape) {
+        return '<div>'
+                + '<span>' + escape(item.code) + '(' + escape(item.person.nameZh) + ')</span>'
+                + '</div>';
+      },
+      option: function(item, escape) {
+        return '<div>'
+                + '<span>' + escape(item.code) + '(' + escape(item.person.nameZh) + ')</span>'
+                + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      var uri = /*[[@{/students/queryByTerm}]]*/ '/students/queryByTerm';
+      if (!query.length) return callback();
+      $.ajax({
+        url: uri + '?term=' + encodeURIComponent(query),
+        type: 'get',
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#createDate').datetimepicker({});
+</script>
+</body>
+</html>

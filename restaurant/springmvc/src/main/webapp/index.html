@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+    <title>登录页面</title>
+</head>
+
+<body background="public/static/eams-ui/img/bg1.jpg">
+<div class="container">
+<center>
+   <h1>欢迎进入选课系统</h1>
+</center>
+</div>
+<script th:inline="javascript">
+        window.location.href="/login.do";
+</script>
+</body>
+</html>

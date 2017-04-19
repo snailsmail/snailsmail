@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">餐饮管理系统</title>
+
+  <link th:href="@{/public/static/eams-ui/css/eams-ui.min.css}" rel="stylesheet" />
+  <link th:href="@{/public/static/eams-ui/css/eams-ui-plugin.min.css}" rel="stylesheet" />
+  <link th:href="@{/public/static/helper/css/info-page.css}" rel="stylesheet" />
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script th:src="@{/public/static/eams-ui/js/html5shiv.min.js}"></script>
+  <script th:src="@{/public/static/eams-ui/js/respond.min.js}"></script>
+  <![endif]-->
+
+  <script th:src="@{/public/static/eams-ui/js/eams-ui.js}"></script>
+  <script th:inline="javascript">
+    // 设置 context path, js会需要用
+    window.CONTEXT_PATH = /*[[${contextPath}]]*/ "";
+    window.LOCALE = /*[[${LOCALE}]]*/ "zh";
+  </script>
+  <script type="text/javascript" th:src="@{/public/static/helper/majorSelect.js}"></script>
+  <script type="text/javascript" th:src="@{/public/static/helper/search-page-helper.js}"></script> <script th:inline="javascript">
+  /*<![CDATA[*/
+  $(function() {
+    var infoMessages = /*[[${_msg_info_list_}]]*/ [];
+    if (!infoMessages) {
+      infoMessages = [];
+    }
+    $.each(infoMessages, function(index, message) {
+      new PNotify({
+        title: '消息',
+        text: message,
+        type: 'info',
+        delay: 1000
+      });
+    });
+
+    var successMessages = /*[[${_msg_success_list_}]]*/ [];
+    if (!successMessages) {
+      successMessages = [];
+    }
+    $.each(successMessages, function(index, message) {
+      new PNotify({
+        title: '消息',
+        text: message,
+        type: 'success',
+        delay: 1000
+      });
+    });
+
+    var errorMessages = /*[[${_msg_error_list_}]]*/ [];
+    if (!errorMessages) {
+      errorMessages = [];
+    }
+    $.each(errorMessages, function(index, message) {
+      new PNotify({
+        title: '消息',
+        text: message,
+        type: 'error',
+        delay: 5000
+      });
+    });
+
+    var noticeMessages = /*[[${_msg_notice_list_}]]*/ [];
+    if (!noticeMessages) {
+      noticeMessages = [];
+    }
+    $.each(noticeMessages, function(index, message) {
+      new PNotify({
+        title: '消息',
+        text: message,
+        type: 'notice',
+        delay: 1000
+      });
+    });
+
+    $("#page-back").click(function() {
+      window.history.back();
+    });
+
+    $( document ).ajaxError(function( event, request ) {
+
+      var texts = [];
+      texts.push("exception:\t" + request.responseJSON.exception);
+      texts.push("message:\t" + request.responseJSON.message);
+      texts.push("path:\t" + request.responseJSON.path);
+      texts.push("status:\t" + request.responseJSON.status);
+      texts.push("timestamp:\t" + new Date(request.responseJSON.timestamp));
+
+      new PNotify({
+        title: request.responseJSON.error,
+        text: texts.join("\n"),
+        type: 'error',
+        delay: 50000,
+        width: '600px',
+        min_height: '150px'
+      });
+
+    });
+
+  })
+  /*]]>*/
+</script>
+</head>
+
+<body layout:fragment="content">
+
+</body>
+</html>

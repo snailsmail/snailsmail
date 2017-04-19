@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+        <!-- 命名空间 -->
+    <typeAliases>
+         <typeAlias alias="User" type="cn.springmvc.model.User"/>
+        <typeAlias alias="Bill" type="cn.springmvc.model.Bill"/>
+        <typeAlias alias="Board" type="cn.springmvc.model.Board"/>
+        <typeAlias alias="Cuisine" type="cn.springmvc.model.Cuisine"/>
+        <typeAlias alias="Emp" type="cn.springmvc.model.Employee"/>
+        <typeAlias alias="Order" type="cn.springmvc.model.Order"/>
+        <typeAlias alias="Job" type="cn.springmvc.model.Job"/>
+        <typeAlias alias="Dishes" type="cn.springmvc.model.Dishes"/>
+        <typeAlias alias="Kitchen" type="cn.springmvc.model.Kitchen"/>
+    </typeAliases>
+
+    <!-- 映射map -->
+    <!--<mappers>-->
+    <!--</mappers>-->
+</configuration>

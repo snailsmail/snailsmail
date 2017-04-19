@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title th:text="员工信息修改">员工信息修改</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+    <form id="save-form" th:action="@{/updateEmp.do}" class="form-horizontal" method="get">
+
+        <div class="form-group">
+            <h2 th:text="员工信息修改"></h2>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="empno" th:text="员工编号">员工编号</label>
+
+            <div class="col-sm-10">
+                <!--<input class="form-control" name="empno" id="empno" th:value="${emp.empno}" />-->
+                <p class="form-control-static" th:text="${emp.empno}" id="empno"></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="job" th:text="职位">职位</label>
+
+            <div class="col-sm-10">
+                <select class="form-control selectpicker" name="job" id="job">
+
+                    <option>...</option>
+                    <option th:each="job : ${ jobs }"
+                            th:value="${job.jobno}"
+                            th:text="${job.jname}"
+                    th:selected="${job.jobno.equals(emp.jobno)}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="ename" th:text="员工姓名">员工姓名</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="ename" id="ename"
+                       th:value="${emp.ename}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" th:text="性别">性别</label>
+
+            <div class="col-sm-10">
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="男" name="sex"
+                               th:checked="${emp.sex=='男'}"/>
+                        <span>男</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="女" name="sex"
+                               th:checked="${emp.sex=='女'}"/>
+                        <span>女</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="age" th:text="年龄">年龄</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="age" id="age" th:value="${emp.age}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd" th:text="密码">密码</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="pwd" id="pwd" th:value="${emp.pwd}" maxlength="100"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="sal" th:text="薪资">薪资</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="sal" id="sal" th:value="${emp.sal}" maxlength="100"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="hiredate" th:text="入职日期">入职日期</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="hiredate" id="hiredate" th:value="${emp.hiredate}" maxlength="100"/>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="tel" th:text="电话号码">电话号码</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="tel" id="tel" th:value="${emp.tel}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email" th:text="email">Email</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="email" id="email" th:value="${emp.email}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="address" th:text="地址">地址</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" id="address" th:value="${emp.address}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" th:text="是否是admin">是否是admin</label>
+
+            <div class="col-sm-10">
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="1" name="isvip"
+                               th:checked="${emp.isAdmin()}"/>
+                        <span>是</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="0" name="isvip"
+                               th:checked="${!emp.isAdmin()}"/>
+                        <span>否</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" type="submit" th:text="保存">保存</button>
+                <input type="button" class="btn btn-default" id="page-back" th:value="取消"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
+</body>
+</html>

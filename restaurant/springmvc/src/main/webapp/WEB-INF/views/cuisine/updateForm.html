@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title th:text="菜品信息修改">菜品信息修改</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+    <form id="save-form" th:action="@{/updateDishes.do}" class="form-horizontal" method="get">
+
+        <div class="form-group">
+            <h2 th:text="菜品信息修改"></h2>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="dishesno" th:text="菜品编号">菜品编号</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" name="dishesno" id="dishesno" th:value="${dishes.dishesno}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="dname" th:text="菜品名">菜品名</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="dname" id="dname"
+                       th:value="${dishes.dname}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="cuisine" th:text="菜系名">菜系名</label>
+
+            <div class="col-sm-10">
+                <select class="form-control selectpicker" name="cuisine" id="cuisine">
+
+                    <option>...</option>
+                    <option th:each="cuisine : ${ cuisines }"
+                            th:value="${cuisine.cuisineno}"
+                            th:text="${cuisine.cname}"
+                            th:selected="${cuisine.cuisineno.equals(dishes.cuisineno)}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="price" th:text="价钱">价钱</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="price" id="price" th:value="${dishes.price}" maxlength="100" required="required"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">选择图片</label>
+            <div class="col-sm-10">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div>
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new"><th:block th:text="选择文件"></th:block></span>
+                            <input type="file" name="portrait"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" type="submit" th:text="保存">保存</button>
+                <input type="button" class="btn btn-default" id="page-back" th:value="取消"/>
+                <!--<input type="hidden" name="REDIRECT_URL" th:value="${REDIRECT_URL}"/>-->
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    $("#image").fileinput({});
+
+    /*]]>*/
+</script>
+</body>
+</html>

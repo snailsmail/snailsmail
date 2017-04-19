@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+
+<body layout:fragment="content">
+
+<div class="container-fluid">
+
+  <table id="table">
+    <thead>
+    <tr>
+      <th width="5%"></th>
+      <th width="10%"><a href="#" data-sort-by="empno" th:text="员工编号">员工编号</a></th>
+      <th width="8%"><a href="#" data-sort-by="jname" th:text="职位">职位</a></th>
+      <th width="10%"><a href="#" data-sort-by="ename" th:text="员工姓名">员工姓名</a></th>
+      <th width="7%"><a href="#" data-sort-by="sex" th:text="性别">性别</a></th>
+      <th width="8%"><a href="#" data-sort-by="age" th:text="年龄">年龄</a></th>
+      <th width="10%"><a href="#" data-sort-by="tel" th:text="电话号码">电话号码</a></th>
+      <th width="17%" th:text="地址">地址</th>
+      <th width="12%" th:text="Email">Email</th>
+      <th width="10%" th:text="是否是管理员">是否是管理员</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="emp : ${emps}">
+      <td><input type="checkbox" name="empno" th:value="${emp.empno}"/></td>
+      <td th:text="${emp.empno}"></td>
+      <span th:each="job :${jobs}">
+      <td th:if="${job.jobno.equals(emp.jobno)}" th:text="${job.jname}"></td>
+      </span>
+      <td th:text="${emp.ename}"></td>
+      <td th:text="${emp.sex}"></td>
+      <td th:text="${emp.age}"></td>
+      <td th:text="${emp.tel}"></td>
+      <td th:text="${emp.address}"></td>
+      <td th:text="${emp.email}"></td>
+      <td th:text="${emp.isAdmin()?'是':'否'}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  $(function () {
+    var $table = $("#table");
+    var menus = [];
+    var curd = [];
+    var currentURI = '/views/employee';
+
+
+    curd.push({
+      title: '新建',
+      icon: 'fa fa-plus',
+      callback: function () {
+        FormUtil.get({
+          form: $("<form></form>"),
+          url: /*[[@{/formEmp.do}]]*/ '/formEmp.do',
+
+        });
+      }
+    });
+
+      curd.push({
+        title: '删除',
+        icon: 'fa fa-trash',
+        callback: function () {
+
+          var ids = $table.semiAutoTable('getSelectedRows');
+          if (ids.length == 0) {
+            alert('请选择要操作的数据');
+            return;
+          }
+          if (!confirm('确认删除吗?')) {
+            return;
+          }
+
+          FormUtil.post({
+            form: $("<form></form>"),
+            url: /*[[@{/deleteEmp.do}]]*/ '/deleteEmp.do',
+            params: {
+              "REDIRECT_URL": currentURI,
+              ids: ids
+            }
+          });
+
+        }
+      });
+//    }
+
+      curd.push({
+        title:  '修改',
+        icon: 'fa fa-pencil',
+        callback: function () {
+          var id = $table.semiAutoTable('getSelectedRows');
+          if (id.length == 0 || id.length >= 2) {
+            alert('请选择一条要操作的数据');
+            return;
+          }
+
+          FormUtil.get({
+            form: $("<form></form>"),
+            url: /*[[@{/updateFormEmp.do}]]*/ '/updateFormEmp.do',
+            params: {
+              id: id
+            }
+          });
+        }
+      });
+
+    curd.push({
+      title:  '详情',
+      icon: 'fa fa-info-circle',
+      callback: function () {
+        var id = $table.semiAutoTable('getSelectedRows');
+        if (id.length == 0 || id.length >= 2) {
+          alert( '请选择一条要操作的数据');
+          return;
+        }
+
+        FormUtil.get({
+          form: $("<form></form>"),
+          url:  /*[[@{/infoEmp.do}]]*/ '/infoEmp.do',
+          params: {
+            id: id
+          }
+        });
+      }
+    });
+
+//    curd.push({
+//      title: '刷新',
+//      icon: 'fa fa-refresh',
+//      callback: function () {
+//        FormUtil.get({
+//          form: $("<form></form>"),
+//          url: /*[[@{/freshEmp.do}]]*/ '/freshEmp.do',
+//
+//        });
+//      }
+//    });
+
+    menus.push(curd);
+
+    $table.initSearchResultTable(
+        'empno',
+        menus,
+        /*[[${_sorts_}]]*/ [],
+        /*[[${_page_}]]*/ {},
+        currentURI
+    );
+  });
+  /*]]>*/
+</script>
+</body>
+
+</html>

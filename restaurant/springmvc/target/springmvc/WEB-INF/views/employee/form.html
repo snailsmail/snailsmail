@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+  <title>添加员工</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+
+  <form id="save-form" th:action="@{/saveEmp.do}" class="form-horizontal" method="post">
+
+    <div class="form-group">
+      <h2>添加员工</h2>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="empno">员工编号</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="empno" id="empno" maxlength="100" required="required" onblur="checkemp()"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="job" th:text="职位">职位</label>
+
+      <div class="col-sm-10">
+        <select class="form-control selectpicker" name="job" id="job">
+          <option value="">...</option>
+          <option th:each="job : ${ jobs }"
+                  th:value="${job.jobno}"
+                  th:text="${job.jname}">
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="ename">员工姓名</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ename" id="ename" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="sex">性别</label>
+
+      <div class="col-sm-10">
+        <input type="radio" name="sex" value="男"/>男
+        <input type="radio" name="sex" id="sex" value="女"/>女
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="age">年龄</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="age" id="age" maxlength="100"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">密码</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="pwd" id="pwd" maxlength="100"  value="666666"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="sal">薪资</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="sal" id="sal" maxlength="100" value="2000"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="tel">电话</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="tel" id="tel" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Email</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="email" id="email" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="address">地址</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="address" id="address" maxlength="100"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="isVip">是否是管理员</label>
+
+      <div class="col-sm-10">
+        <input type="radio" name="isVip" value="是"/>是
+        <input type="radio" name="isVip" id="isVip" value="否"/>否
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" type="submit" id="submit">保存</button>
+        <input type="button" class="btn btn-default" id="page-back" th:value="取消"/>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script type="text/javascript">
+  /*<![CDATA[*/
+  function checkemp(){
+    $.ajax({
+      url: "/checkEmp.do",
+      dataType: "json",
+      data: {empno:$("#empno").val()},
+      type: "get",
+      success: function(result){
+        if(result){
+          alert("该编号已存在!");
+          $(this).focus;
+        }
+      }
+    });
+  }
+
+//  /**
+//   * 验证电话号码（手机号码+电话号码）
+//   * @param obj
+//   * @returns {Boolean}
+//   */
+//  function checkPhoneNum(obj){
+//    if(/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(obj)){
+//      return true;
+//    }
+//  }
+//  /**
+//   * 验证企业地址（中文、英文、数字）
+//   * @param obj
+//   */
+//  function checkAddress(obj){
+//    if(/^[\u4e00-\u9fa5a-zA-Z0-9]+$/.test(obj)){
+//      return true;
+//    }
+//  }
+//  /**
+//   * 验证金额（可验证 大于等于零，小于等于99999999.99 的数字）
+//   * @param obj
+//   * @returns {Boolean}
+//   */
+//  function checkMoney(obj){
+//    if(/^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(obj)){
+//      return true;
+//    }
+//  }
+
+  $(function checkEmail(){
+    $('#email').blur(function(){
+      var email = $(this).val();
+      var reg = /\w+[@]{1}\w+[.]\w+/;
+      if(reg.test(email)){
+        return true;
+      }else{
+        alert("请输入正确的email地址");
+        return false;
+      }
+    });
+  });
+
+  $(function(){
+    $('#submit').submit(function(){
+              checkEmail
+    }
+
+    );
+  });
+  /*]]>*/
+</script>
+</body>
+</html>

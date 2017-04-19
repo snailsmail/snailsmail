@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+
+<body layout:fragment="content">
+
+<div class="container-fluid">
+
+  <table id="table">
+    <thead>
+    <tr>
+      <th width="5%"></th>
+      <th width="10%"><a href="#" data-sort-by="userno" th:text="客户编号">客户编号</a></th>
+      <th width="10%"><a href="#" data-sort-by="uname" th:text="客户姓名">客户姓名</a></th>
+      <th width="10%"><a href="#" data-sort-by="sex" th:text="性别">性别</a></th>
+      <th width="15%"><a href="#" data-sort-by="tel" th:text="电话号码">电话号码</a></th>
+      <th width="10%"><a href="#" data-sort-by="balance" th:text="余额">余额</a></th>
+      <th width="25%" th:text="地址">地址</th>
+      <th width="10%" th:text="是否是Vip">是否是Vip</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td><input type="checkbox" name="userno" th:value="${user.userno}"/></td>
+      <td th:text="${user.userno}"></td>
+      <td th:text="${user.uname}"></td>
+      <td th:text="${user.sex}"></td>
+      <td th:text="${user.tel}"></td>
+      <td th:text="${user.balance}"></td>
+      <td th:text="${user.address}"></td>
+      <td th:text="${user.isVip()?'是':'否'}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  $(function () {
+    var $table = $("#table");
+    var menus = [];
+    var curd = [];
+    var currentURI = '/views/user';
+
+    curd.push({
+      title:  '充值',
+      icon: 'fa fa-dollar',
+      callback: function () {
+        var id = $table.semiAutoTable('getSelectedRows');
+        if (id.length == 0 || id.length >= 2) {
+          alert( '请选择充值对象');
+          return;
+        }
+
+        FormUtil.get({
+          form: $("<form></form>"),
+          url:  /*[[@{/rechargeGene.do}]]*/ '/rechargeGene.do',
+          params: {
+            id: id
+          }
+        });
+      }
+    });
+
+    curd.push({
+      title:  '开通Vip',
+      icon: 'fa fa-shield',
+      callback: function () {
+        var id = $table.semiAutoTable('getSelectedRows');
+        if (id.length == 0 || id.length >= 2) {
+          alert( '请选择开通Vip对象');
+          return;
+        }
+
+        FormUtil.get({
+          form: $("<form></form>"),
+          url:  /*[[@{/openGene.do}]]*/ '/openGene.do',
+          params: {
+            id: id
+          }
+        });
+      }
+    });
+
+    menus.push(curd);
+
+    $table.initSearchResultTable(
+        'userno',
+        menus,
+        /*[[${_sorts_}]]*/ [],
+        /*[[${_page_}]]*/ {},
+        currentURI
+    );
+  });
+  /*]]>*/
+</script>
+</body>
+
+</html>

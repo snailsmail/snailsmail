@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title>报表统计</title>
+    <link th:href="@{/public/static/morris.js-0.5.1/morris.css}" rel="stylesheet" />
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link th:href="@{/public/static/helper/css/bootstrap-cerulean.css}" rel="stylesheet" />-->
+    <!--<script type="text/javascript" th:src="@{/public/static/helper/js/bootstrap-tab.js}"></script>-->
+    <script type="text/javascript" th:src="@{/public/static/eams-ui/js/raphael-min.js}"></script>
+    <script type="text/javascript" th:src="@{/public/static/morris.js-0.5.1/morris.min.js}"></script>
+    <script type="text/javascript" th:src="@{/public/static/eams-ui/js/jquery-1.9.1.min.js}"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
+
+<body  layout:fragment="content">
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#week" data-toggle="tab">周报表</a></li>
+        <li><a href="#month" data-toggle="tab">季度报表</a></li>
+        <li><a href="#years" data-toggle="tab">年度报表</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+        <div id="week" class="tab-pane fade in active"></div>
+        <div id="month" class="tab-pane fade">yyyyy</div>
+        <div id="years" class="tab-pane fade">yyyyy</div>
+    </div>
+
+    <script>
+        var data = '$data';
+        data = data.replace(/&quot;/g, '"');
+        var array = eval(data);
+
+        new Morris.Line({
+            element: 'week',
+            data: array,
+            xkey: 'week',
+            ykeys: ['a', 'b'],
+            labels: ['Series A', 'Series B']
+        });
+
+        Morris.Line({
+            element: 'month',
+            data: [
+                { year: '2008', value: 20 },
+                { year: '2009', value: 10 },
+                { year: '2010', value: 5 },
+                { year: '2011', value: 5 },
+                { year: '2012', value: 20 }
+            ],
+            xkey: 'year',
+            ykeys: ['value'],
+            labels: ['Value']
+        });
+
+
+    </script>
+
+</body>
+
+</html>
+

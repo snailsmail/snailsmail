@@ -1,0 +1,3 @@
+2016-09-09 18:29:56 [ RMI TCP Connection(2)-127.0.0.1:820 ] - [ ERROR ] maxIdle is deprecated
+2016-09-09 21:58:00 [ RMI TCP Connection(4)-127.0.0.1:1387 ] - [ ERROR ] maxIdle is deprecated
+2016-09-09 21:58:09 [ http-nio-8090-exec-5:10712 ] - [ ERROR ] [THYMELEAF][http-nio-8090-exec-5] Exception processing template "home": Error resolving template "home", template might not exist or might not be accessible by any of the configured Template Resolvers

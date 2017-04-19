@@ -1,0 +1,159 @@
+#totalBuy
+{
+	margin:0px auto;
+	width:1002px;
+	height:1002px;
+}
+
+#buyHead
+{
+	width:1002px;
+	height:40px;
+	line-height:40px;
+	font-size:12px;	
+}
+
+#buyBody
+{
+	width:1000px;
+	height:960px;
+	border-width:1px;
+	border-color: black;
+	border-style: solid;
+	
+}
+#buyHead span
+{
+	margin:0px 5px;
+}
+.buySide
+{
+		float:left;
+	width:40px;
+	height:960px;
+	background-color: blue;
+}
+
+#buy
+{
+	width:920px;
+	height:960px;
+	float:left;
+}
+
+#buy_1
+{
+	width:920px;
+	height:80px;
+	background-image: url("../image/buy_1.png");
+	border-bottom-color: black;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+}
+
+.confirm_per
+{
+	width:920px;
+	height:30px;
+		border-bottom-color: black;
+	border-bottom-style:solid;
+	border-bottom-width: 1px;
+	line-height:30px;
+}
+
+.blackFont
+{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.redFont
+{
+	font-size: 13px;
+	font-weight: bold;
+	color: red;
+}
+#per_info
+{
+	font-size:13px;
+	width:920px;
+	height:240px;
+}
+
+.first_td
+{
+	width:120px;
+	height:40px;
+	line-height:40px;
+	text-align: right;
+	color: gray;
+}
+
+.second_td
+{
+	width:800px;
+	height:40px;
+	line-height:40px;
+}
+
+#buy_info
+{
+	width:920px;
+	height:90px;
+	
+}
+
+#buy_info td
+{
+	text-align: center;
+}
+#info_table
+{
+	width:918px;
+	height:88px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+}
+
+#first_tr
+{
+	width:918px;
+	height:44px;
+	background-color: #F5F5F5;
+}
+
+#sec_tr
+{
+	width:918px;
+	height:44px;
+}
+
+.sectd
+{
+	border-right-color: black;
+	border-right-style: dashed;
+	border-right-width: 1px;
+}
+
+#sub_btn
+{
+	
+	width:920px;
+	height:50px;
+	text-align: right;
+	
+}
+
+#sub_btn img
+{
+	margin-top:10px;
+	border:0px;
+}
+
+
+
+
+
+
+

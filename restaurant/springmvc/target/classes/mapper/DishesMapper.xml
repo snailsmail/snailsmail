@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.DishesDAO">
+
+    <insert id="insertDishes" parameterType="Dishes">
+        insert into dishes(dishesno,cuisineno,dname,price) values(#{dishesno},#{cuisineno},#{dname},#{price})
+    </insert>
+
+    <insert id="insertDishesAll" parameterType="Dishes">
+        insert into dishes(dishesno,cuisineno,dname,price,url) values(#{dishesno},#{cuisineno},#{dname},#{price},#{url})
+    </insert>
+
+    <delete id="deleteDishesByDishesno" parameterType="String">
+        delete from dishes where dishesno = #{dishesno}
+    </delete>
+
+    <delete id="deleteDishesBydname" parameterType="String">
+        delete from dishes where dname = #{dname}
+    </delete>
+
+    <update id="updateDishes" parameterType="Dishes">
+        update dishes set cuisineno = #{cuisineno},dname = #{dname},price = #{price} where dishesno = #{dishesno}
+    </update>
+
+    <update id="updateDishesAll" parameterType="Dishes">
+        update dishes set cuisineno = #{cuisineno},dname = #{dname},price = #{price},url = #{url} where dishesno = #{dishesno}
+    </update>
+
+    <select id="getDishesByDishesno" parameterType="String" resultType="Dishes">
+        select * from dishes where dishesno=#{dishesno}
+    </select>
+
+    <select id="getDishesByDname" parameterType="String" resultType="Dishes">
+        select * from dishes where dname=#{dname}
+    </select>
+
+    <select id="getAllDishes" resultType="Dishes">
+            select * from dishes
+    </select>
+
+    <select id="getDishesByCuisineno" resultType="Dishes">
+        select * from dishes where cuisineno=#{cuisineno}
+    </select>
+
+
+
+</mapper>

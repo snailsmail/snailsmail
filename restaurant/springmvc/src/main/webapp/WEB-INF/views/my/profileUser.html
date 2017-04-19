@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title th:text="我的档案">My Profile</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-4">
+
+            <li class="list-group-item text-left">
+                <i class="fa fa-user"></i> <span th:text="我的档案">My Profile</span>
+            </li>
+            <li class="list-group-item text-center">
+
+                <form id="save-form" class="form-horizontal" th:action="@{/my/updateAvatar}" method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+
+                        <div class="input-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 100px; height: 100px;">
+                                    <img th:src="${hasPortrait}?@{/my/avatar}:${defaultAvatar}"/>
+                                </div>
+                                <div>
+								<!--<span class="btn btn-default btn-file">-->
+									<!--<span class="fileinput-new"><th:block th:text="#{action.pickFile}"></th:block></span>-->
+									<!--<span class="fileinput-exists"><th:block th:text="#{action.change}"></th:block></span>-->
+									<!--<input type="file" name="portrait"/>-->
+								<!--</span>-->
+                                    <!--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><th:block th:text="#{action.remove}"></th:block></a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<button class="btn btn-primary" type="submit" th:text="#{action.save}">保存</button>-->
+                    <!--<input type="hidden" name="REDIRECT_URL" th:value="${currentURI}"/>-->
+                </form>
+
+            </li>
+            <li class="list-group-item text-right">
+                <span class="pull-left"><strong>姓名</strong></span>
+                <span th:text="${currentUser.uname}"></span>
+            </li>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-8">
+
+            <div class="rounded profile">
+                <h2 th:text="${currentUser.uname}"></h2>
+                <hr/>
+                <dl>
+                    <dt th:text="客户编号"></dt>
+                    <dd th:text="${currentUser.userno}"></dd>
+
+                    <dt th:text="客户姓名"></dt>
+                    <dd th:text="${currentUser.uname}"></dd>
+
+                    <dt th:text="性别"></dt>
+                    <dd th:text="${currentUser.sex}"></dd>
+
+                    <dt th:text="电话"></dt>
+                    <dd th:text="${currentUser.tel}"></dd>
+
+                    <dt th:text="余额"></dt>
+                    <dd th:text="${currentUser.balance}"></dd>
+
+                    <dt th:text="地址"></dt>
+                    <dd th:text="${currentUser.address}"></dd>
+
+                    <dt th:text="是否是Vip"></dt>
+                    <dd th:text="${currentUser.isVip()?'是':'否'}"></dd>
+
+                </dl>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

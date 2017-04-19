@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title th:text="登录页面">登录页面</title>
+
+    <link th:href="@{/public/static/eams-ui/css/eams-ui-home.min.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/public/static/cryptoJS/sha1.js}"></script>
+</head>
+
+<body class="e-home e-home-bg1" layout:fragment="content">
+
+<div class="container">
+
+    <div class="login-form">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-12">
+
+                <div class="login-banner">
+                    <h1>选课系统登录</h1>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-12">
+
+                <div class="login-fields">
+
+                    <form role="form" th:action="@{/home.do}" method="get">
+                        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:inline="text">
+                            <span class="fa fa-exclamation-triangle"></span>
+                            [[${error}]]
+                        </div>
+
+                        <div class="form-group">
+                            <a th:href="@{/sign-up.do}" class="pull-right label-forgot">客户注册</a>
+                            <label for="name">登陆名</label>
+                            <input type="text" id="name" name="name" class="form-control" tabindex="1"
+                                   autocomplete="off"/>
+                        </div>
+
+                        <div class="form-group">
+                            <a th:href="@{/forget-password.do}" class="pull-right label-forgot">忘记密码</a>
+                            <label for="pwd">密码</label>
+                            <input type="password" id="pwd" name="pwd" class="form-control" tabindex="2"
+                                   autocomplete="off"/>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 10px;margin-bottom: 8px;">
+
+                            <div class="col-sm-10">
+                                <input type="radio" name="job" value="学生" th:checked="checked"/>学生
+                                <input type="radio" name="job" id="job" value="管理员"/>管理员
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn btn-primary pull-right" type="submit" tabindex="4">登入</button>
+                        </div>
+
+                    </form>
+
+                    <div class="row-block">
+                        <div class="row"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h6 class="copyright">
+
+                </h6>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script th:inline="javascript">
+    // <![CDATA[
+    $(function() {
+        if (top.location.href != self.location.href) {
+            top.location.href = self.location.href;
+        }
+        $('form').submit(function (event) {
+            if ($("#name").val().trim() == "") {
+                alert("登陆名不能为空");
+                return false;
+            }
+            if ($("#pwd").val().trim() == "") {
+                alert("密码不能为空");
+                return false;
+            }
+        });
+    })
+
+    // ]]>
+</script>
+
+</body>
+
+
+</html>
+

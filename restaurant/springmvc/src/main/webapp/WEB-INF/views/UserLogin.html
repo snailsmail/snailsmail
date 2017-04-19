@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+    <title>首页</title>
+
+    <link th:href="@{/public/static/eams-ui/css/eams-ui-home.min.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/public/static/cryptoJS/sha1.js}"></script>
+    <style>
+        .aaa{
+            float: right;
+        }
+    </style>
+
+</head>
+
+<body class="e-home e-home-bg1" layout:fragment="content">
+
+
+<!-- 顶部导航栏 -->
+<header class="e-header">
+
+    <nav role="navigation" class="navbar navbar-static-top">
+
+        <div class="container-fluid">
+
+            <ul id="e-top-menu" class="nav navbar-nav e-navbar-nav-1">
+            </ul>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+
+                <ul class="nav navbar-nav navbar-right e-navbar-nav-3">
+
+                    <li>
+                        <a id="e-home-tab-count" href="#e-home-tab-area" data-toggle="collapse" aria-expanded="false"
+                           aria-controls="e-home-tab-area">
+                            <i class="fa fa-bookmark-o"></i>
+
+                            <div class="e-corner-mark-red"></div>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" th:inline="text">
+                            <img alt="" class="img-circle e-avatar" th:src="${hasPortrait}?@{/my/avatar}:${defaultAvatar}"/>
+                            <!--[[#{home.hello.user(${personName})}]]-->
+                            [[${currentUser.uname+',你好!'}]]
+                            <!--<span th:text="${currentEmp.ename}"></span>-->
+                            <b class="caret"></b>
+                        </a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li>
+                                <a th:href="@{/profileUser.do}" data-open="tab-view">
+                                    <i class="fa fa-user"></i>
+                                    <span>我的档案</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/passwordUser.do}" data-open="tab-view">
+                                    <i class="fa fa-cog"></i>
+                                    <span>修改密码</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/logout.do}">
+                                    <i class="fa fa-life-ring"></i>
+                                    <span>登出</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" role="button" aria-expanded="false">
+                            <i class="fa fa-sliders"></i>&nbsp;&nbsp;Setting
+                        </a>
+                        <ul role="menu" class="dropdown-menu e-theme-list">
+                            <li>
+                                <div id="e-theme-button-bg1"></div>
+                                <div id="e-theme-button-bg2"></div>
+                                <div id="e-theme-button-bg3"></div>
+                                <div id="e-theme-button-bg4"></div>
+                                <div id="e-theme-button-bg5"></div>
+                                <div id="e-theme-button-bg6"></div>
+                                <div id="e-theme-button-bg7"></div>
+                                <div id="e-theme-button-bg8"></div>
+                                <div id="e-theme-button-bg9"></div>
+                                <div id="e-theme-button-bg10"></div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+
+        </div>
+
+    </nav>
+
+</header>
+
+<div id="e-content-area">
+
+    <div id="e-op-area">
+
+        <div class="container-fluid">
+
+            <!-- page header -->
+            <div class="row e-page-header">
+
+                <div class="col-sm-3">
+
+                    <h2>
+                        <span>Home</span>
+                    </h2>
+
+                    <div class="e-page-header-divider"></div>
+
+                </div>
+
+                <div class="col-sm-6 col-sm-offset-3">
+
+                    <button id="e-home-tab-close-current" type="button" class="close" data-toggle="tooltip" title="关闭">&times;
+                    </button>
+
+                </div>
+
+            </div>
+            <!-- /.page header -->
+
+            <div class="embed-responsive e-op-area-iframe-container">
+
+                <iframe class="embed-responsive-item" frameborder="0" id="e-home-iframe" name="e-home-iframe" th:src="@{/show.do}"></iframe>
+
+            </div>
+
+        </div>
+        <!-- /.page iframe -->
+
+        <footer class="e-home-footer">
+            <div id="time"></div>
+        </footer>
+
+    </div>
+    <!-- /.operation area -->
+
+</div>
+
+
+<!-- tab list -->
+<div id="e-home-tab-area" class="collapse width">
+
+    <div class="e-home-tab-area-fixed-header">
+        <a href="#e-home-tab-area" data-toggle="collapse" aria-expanded="false" aria-controls="e-home-tab-area">
+            <i class="fa fa-angle-double-right"></i>
+        </a>
+
+        <a href="#" id="e-home-tab-close-all" th:text="全部关闭">
+        </a>
+    </div>
+
+    <ul id="e-home-tab-list">
+
+        <li>
+            <a href="welcome/" id="e-home-tab-home" target="e-home-iframe" class="active">
+                <span th:text="首页"></span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+<!-- ./tab list -->
+
+
+
+
+<script th:src="@{/public/static/eams-ui/js/eams-ui-home.js}"></script>
+<script th:src="@{/public/static/eams-ui/js/jquery-1.6.js}"></script>
+<script type="text/javascript">
+    setInterval(function() {
+        var now = (new Date()).toLocaleString();
+        $('#time').text(now);
+    }, 1000);
+    $('#times').text(new Date().toLocaleString());
+</script>
+
+</body>
+
+</html>

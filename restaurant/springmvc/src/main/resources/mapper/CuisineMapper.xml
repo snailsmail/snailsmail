@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.CuisineDAO">
+
+    <insert id="insertCuisine" parameterType="Cuisine">
+        insert into cuisine(cuisineno,cname) values(#{cuisineno},#{cname})
+    </insert>
+
+    <delete id="deleteCuisineByCuisineno" parameterType="String">
+        delete from cuisine where cuisineno = #{cuisineno}
+    </delete>
+
+    <delete id="deleteCuisineByCname" parameterType="String">
+        delete from cuisine where cname = #{cname}
+    </delete>
+
+    <update id="updateCuisine" parameterType="Cuisine">
+        update cuisine set cname = #{cname} where cuisineno = #{cuisineno}
+    </update>
+
+    <select id="getCuisineByCuisineno" parameterType="String" resultType="Cuisine">
+        select * from cuisine where cuisineno=#{cuisineno}
+    </select>
+
+    <select id="getCuisineByCname" parameterType="String" resultType="Cuisine">
+        select * from cuisine where cname=#{cname}
+    </select>
+
+    <select id="getAllCuisine" resultType="Cuisine">
+            select * from cuisine
+    </select>
+
+
+
+</mapper>

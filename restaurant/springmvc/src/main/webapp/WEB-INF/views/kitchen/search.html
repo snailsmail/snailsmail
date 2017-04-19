@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+
+<body layout:fragment="content">
+
+<div class="container-fluid">
+
+  <table id="table">
+    <thead>
+    <tr>
+      <th width="5%"></th>
+      <th width="20%"><a href="#" data-sort-by="kitchenno" th:text="编号">编号</a></th>
+      <th width="20%"><a href="#" data-sort-by="orderno" th:text="订单编号">订单编号</a></th>
+      <th width="20%"><a href="#" data-sort-by="state" th:text="状态">状态</a></th>
+      <th width="20%"><a href="#" data-sort-by="cost" th:text="成本">成本</a></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="kitchen : ${kitchens}">
+      <td><input type="checkbox" name="kitchenno" th:value="${kitchen.kitchenno}"/></td>
+      <td th:text="${kitchen.kitchenno}"></td>
+      <td th:text="${kitchen.orderno}"></td>
+      <td th:text="${kitchen.state?'已上菜':'正在做'}"></td>
+      <td th:text="${kitchen.cost}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  $(function () {
+    var $table = $("#table");
+    var menus = [];
+    var curd = [];
+    var currentURI = '/views/kitchen';
+
+
+    curd.push({
+      title: '新建',
+      icon: 'fa fa-plus',
+      callback: function () {
+        FormUtil.get({
+          form: $("<form></form>"),
+          url: /*[[@{/formKitchen.do}]]*/ '/formKitchen.do',
+
+        });
+      }
+    });
+
+
+      curd.push({
+        title: '删除',
+        icon: 'fa fa-trash',
+        callback: function () {
+
+          var ids = $table.semiAutoTable('getSelectedRows');
+          if (ids.length == 0) {
+            alert('请选择要操作的数据');
+            return;
+          }
+          if (!confirm('确认删除吗?')) {
+            return;
+          }
+
+          FormUtil.post({
+            form: $("<form></form>"),
+            url: /*[[@{/deleteKitchen.do}]]*/ '/deleteKitchen.do',
+            params: {
+              "REDIRECT_URL": currentURI,
+              ids: ids
+            }
+          });
+
+        }
+      });
+
+      curd.push({
+        title:  '修改',
+        icon: 'fa fa-pencil',
+        callback: function () {
+          var id = $table.semiAutoTable('getSelectedRows');
+          if (id.length == 0 || id.length >= 2) {
+            alert('请选择一条要操作的数据');
+            return;
+          }
+
+          FormUtil.get({
+            form: $("<form></form>"),
+            url: /*[[@{/updateFormKitchen.do}]]*/ '/updateFormKitchen.do',
+            params: {
+              id: id
+            }
+          });
+        }
+      });
+
+    curd.push({
+      title:  '详情',
+      icon: 'fa fa-info-circle',
+      callback: function () {
+        var id = $table.semiAutoTable('getSelectedRows');
+        if (id.length == 0 || id.length >= 2) {
+          alert( '请选择一条要操作的数据');
+          return;
+        }
+
+        FormUtil.get({
+          form: $("<form></form>"),
+          url:  /*[[@{/infoKitchen.do}]]*/ '/infoKitchen.do',
+          params: {
+            id: id
+          }
+        });
+      }
+    });
+
+
+    menus.push(curd);
+
+    $table.initSearchResultTable(
+        'kitchenno',
+        menus,
+        /*[[${_sorts_}]]*/ [],
+        /*[[${_page_}]]*/ {},
+        currentURI
+    );
+  });
+  /*]]>*/
+</script>
+</body>
+
+</html>

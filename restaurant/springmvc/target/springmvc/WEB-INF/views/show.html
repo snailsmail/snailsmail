@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+    <style>
+        .box1{
+            height: 130px;
+            width: 200px;
+        }
+        .box{
+            height: 180px;
+            width: 200px;
+            text-align: center;
+            display: inline-block;
+            margin-left: 20px;
+        }
+        #masonry{
+            text-align: center;
+        }
+        a{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body layout:fragment="content">
+
+<div class="container-fluid">
+
+    <div class="form-group" style="margin-left: 1000px; margin-top: 30px;">
+        <label style="margin-left: -1100px;" name="MyDishes" id="MyDishes"><a th:href="@{/MyDishes.do}">订单详情</a></label>
+        <label for="cuisine" th:text="按菜系查询">按菜系查询</label>
+        <select name="cuisine" id="cuisine" class="btn btn-default">
+            <option value="">全部</option>
+            <option th:each="cuisine : ${ cuisines }"
+                    th:value="${cuisine.cuisineno}"
+                    th:text="${cuisine.cname}"
+                    th:selected="${currCuisine!=null and currCuisine.cuisineno==cuisine.cuisineno}">
+            </option>
+        </select>
+        <button class="btn btn-default" onclick="inquiry()">查询</button>
+        <div class="col-sm-10">
+        </div>
+    </div>
+
+    <div id="masonry" class="container-fluid">
+        <div class="box" th:each="dish : ${dishes}" th:value="${dish.dishesno}"><a href="#"><img th:src="${dish.url}" class="box1"/></a>
+            <h4><span th:text="${dish.dname}" id="dishes"><br/></span></h4>
+            <center> <span th:text="${dish.price}"><br/></span>
+            <span th:each="cuisine : ${cuisines}">
+                <span th:if="${dish.cuisineno.equals(cuisine.cuisineno)}" th:text="${cuisine.cname}"></span>
+            </span></center>
+
+            <button class="pull-right" style="margin-top: -51px; height: 20px; line-height: 20px;" th:value="${dish.dishesno}" onclick="myFunction(this)" th:text="预定">预定</button>
+            <button class="pull-right" style="margin-top: -26px; height: 20px; line-height: 20px;" th:value="取消">取消</button>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript" th:src="@{/public/static/eams-ui/js/jquery-1.9.1.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function inquiry(){
+        FormUtil.get({
+            form: $("<form></form>"),
+            url: /*[[@{/inquiry.do}]]*/ '/inquiry.do',
+            params: {
+                "cuisineno":$("#cuisine").val()
+            }
+        });
+    }
+
+    function myFunction(button) {
+//        $(button).text('已预订');
+//        FormUtil.get({
+//            form: $("<form></form>"),
+//            url: /*[[@{/advance.do}]]*/ '/advance.do',
+//            params: {
+//                "dishesno": $(button).val()
+//            }
+//        });
+
+        $(button).text('已预订');
+        $.ajax({
+            url: "/advance.do",
+            dataType: "json",
+            data: {
+                "dishesno": $(button).val()
+            },
+            type: "get",
+            success: function(result){
+                if(result){
+                    $(button).text('已预订');
+                }
+            }
+        });
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

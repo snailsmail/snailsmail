@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+  <title th:text="菜品具体信息">菜品具体信息</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+  <div class="row">
+
+    <div class="rounded info-page">
+      <div class="top-bar">
+        <h2 class="info-title" th:text="具体信息"></h2>
+        <div class="back">
+          <button class="btn btn-default" id="page-back">返回</button>
+        </div>
+      </div>
+      <hr/>
+      <dl>
+        <dt th:text="菜品编号"></dt>
+        <dd th:text="${dishes.dishesno}"></dd>
+
+        <dt th:text="菜品名"></dt>
+        <dd th:text="${dishes.dname}"></dd>
+
+        <dt th:text="菜系名称"></dt>
+        <dd th:text="${cuisine.cname}"></dd>
+
+        <dt th:text="价格"></dt>
+        <dd th:text="${dishes.price}"></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

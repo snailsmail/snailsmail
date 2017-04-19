@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+  <title>错误页面</title>
+
+  <link th:href="@{/static/eams-ui/css/eams-ui-home.min.css}" rel="stylesheet"/>
+</head>
+
+<body class="error-page" layout:fragment="content">
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-sm-12">
+      <h2>404</h2>
+      <h3>
+        <i class="fa fa-warning highlight"></i>
+        <span></span>
+      </h3>
+      <p>
+        <label>异常:</label>
+        <span></span>
+      </p>
+      <p>
+        <label>消息:</label>
+        <span></span>
+      </p>
+      <p>
+        <label>网址:</label>
+        <span></span>
+      </p>
+
+      <p th:inline="text">
+        [[#{error_page.click}]]
+        <a href="#trace" class="highlight" data-toggle="collapse" aria-expanded="false" aria-controls="trace"
+          ></a>
+        [[#{error_page.show_details}]]
+      </p>
+
+      <pre id="trace" class="collapse"></pre>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

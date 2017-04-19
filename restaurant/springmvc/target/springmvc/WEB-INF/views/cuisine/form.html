@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+  <title>添加菜品</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+
+  <form id="save-form" th:action="@{/saveDishes.do}" class="form-horizontal" method="post">
+
+    <div class="form-group">
+      <h2>添加菜品</h2>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="dishesno">菜品编号</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="dishesno" id="dishesno" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="dname">菜品名</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="dname" id="dname" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="cuisine" th:text="菜系名">菜系名</label>
+
+      <div class="col-sm-10">
+        <select class="form-control selectpicker" name="cuisine" id="cuisine">
+          <option value="">...</option>
+          <option th:each="cuisine : ${ cuisines }"
+                  th:value="${cuisine.cuisineno}"
+                  th:text="${cuisine.cname}">
+          </option>
+        </select>
+        <button class="btn btn-default" onclick="addCuisine()" style="margin-top: 20px; margin-left: 700px;">菜系操作</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="price">价格</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="price" id="price" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" type="submit">保存</button>
+        <input type="button" class="btn btn-default" onclick="back()" th:value="取消"/>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+    function addCuisine(){
+        FormUtil.get({
+            form: $("<form></form>"),
+            url: /*[[@{/opaCuisine.do}]]*/ '/opaCuisine.do',
+        });
+    }
+
+  function back(){
+    FormUtil.get({
+      form: $("<form></form>"),
+      url: /*[[@{/backD.do}]]*/ '/backD.do',
+    });
+
+  }
+/*]]>*/
+</script>
+</body>
+</html>

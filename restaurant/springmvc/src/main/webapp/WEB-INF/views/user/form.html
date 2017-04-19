@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="templates/layout/default">
+<head>
+
+  <title>添加客户</title>
+
+</head>
+
+<body layout:fragment="content">
+
+<div class="container">
+
+
+  <form id="save-form" th:action="@{/saveUser.do}" class="form-horizontal" method="get">
+
+    <div class="form-group">
+      <h2>添加客户</h2>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="userno">客户编号</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="userno" id="userno" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="uname">客户名</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="uname" id="uname" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="sex">性别</label>
+
+      <div class="col-sm-10">
+        <input type="radio" name="sex" value="男"/>男
+        <input type="radio" name="sex" id="sex" value="女"/>女
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="tel">电话</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="tel" id="tel" maxlength="100" required="required"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="balance">余额</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="balance" id="balance" maxlength="100" value="0"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="address">地址</label>
+
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="address" id="address" maxlength="100"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" type="submit">保存</button>
+        <input type="button" class="btn btn-default" id="page-back" th:value="取消"/>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

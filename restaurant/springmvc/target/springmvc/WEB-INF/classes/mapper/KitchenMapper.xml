@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.KitchenDAO">
+
+    <insert id="insertKitchen" parameterType="Kitchen">
+        insert into kitchen(kitchenno,orderno,state,cost) values(#{kitchenno},#{orderno},#{state},#{cost})
+    </insert>
+
+    <delete id="deleteKitchenByKitchenno" parameterType="String">
+        delete from kitchen where kitchenno = #{kitchenno}
+    </delete>
+
+    <update id="updateKitchen" parameterType="Kitchen">
+        update kitchen set orderno = #{orderno},state = #{state},cost = #{cost} where kitchenno = #{kitchenno}
+    </update>
+
+    <select id="getKitchenByKitchenno" parameterType="String" resultType="Kitchen">
+        select * from kitchen where kitchenno=#{kitchenno}
+    </select>
+
+    <select id="getKitchenByOrderno" parameterType="String" resultType="Kitchen">
+        select * from kitchen where orderno=#{orderno}
+    </select>
+
+    <select id="getAllKitchen" resultType="Kitchen">
+            select * from kitchen
+    </select>
+
+
+
+</mapper>

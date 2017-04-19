@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.UserDAO">
+
+         <insert id="insertUser" parameterType="User">
+             insert into users(userno,uname,sex,tel,balance,address,isvip) values(#{userno},#{uname},#{sex},#{tel},#{balance},#{address},#{isvip})
+         </insert>
+
+        <insert id="insertUser1pwd" parameterType="User">
+            insert into users(userno,uname,sex,tel,balance,address,isvip,pwd) values(#{userno},#{uname},#{sex},#{tel},#{balance},#{address},#{isvip},#{pwd})
+        </insert>
+
+        <insert id="insertUser1url" parameterType="User">
+            insert into users(userno,uname,sex,tel,balance,address,isvip,pwd) values(#{userno},#{uname},#{sex},#{tel},#{balance},#{address},#{isvip},#{pwd})
+        </insert>
+         
+         <delete id="deleteUserByUserno" parameterType="String">
+             delete from users where userno = #{userno}
+         </delete>
+
+        <delete id="deleteUserByUname" parameterType="String">
+            delete from users where uname = #{uname}
+        </delete>
+         
+         <update id="updateUser" parameterType="User">
+             update users set uname = #{uname},sex = #{sex},tel = #{tel},balance = #{balance},address = #{address},isvip = #{isvip}
+             where userno = #{userno}
+         </update>
+
+        <update id="updateUserPwd" parameterType="User">
+          update users set pwd=#{pwd} where userno = #{userno}
+        </update>
+
+        <update id="updateUserAll" parameterType="User">
+            update users set uname = #{uname},sex = #{sex},tel = #{tel},balance = #{balance},address = #{address},isvip = #{isvip},pwd=#{pwd} where userno = #{userno}
+        </update>
+
+         <select id="getUserByUserno" parameterType="String" resultType="User">
+           select * from users where userno=#{userno}
+         </select>
+
+        <select id="getUserByUname" parameterType="String" resultType="User">
+            select * from users where uname=#{uname}
+        </select>
+
+        <select id="getAllUser" resultType="User">
+            select * from users
+         </select>
+         
+         
+
+</mapper>
